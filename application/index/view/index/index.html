@@ -1,0 +1,70 @@
+{{include file="index@index/header"/}}
+{{load href="/static/css/css1.css" /}}
+首页{{$username}}<br/>
+首页{{$username|substr=0,3}}<br/>
+{{$Think.session.sess}}<br/>
+{{$Think.now}}<br/>
+{{$test}}<br/>
+{{$tu|default='麦子学院'}}
+<br/>
+请求参数：{{$Request.get.id}}
+<br/>
+{{if $test>5}}
+大于5
+{{else}}
+小于5
+{{/if}}
+{{if is_array($arr)}}
+{{foreach $arr as $k=>$v}}
+
+<br/>键值：{{$k}}--键名{{$v}}
+
+{{/foreach}}
+{{/if}}
+
+
+{{if is_array($arr)}}
+{{foreach $arr2 as $k=>$v}}
+
+<br/>键值：{{$k}}--键名{{$v.username}}
+
+{{/foreach}}
+
+{{/if}}
+
+<p>
+    <?php echo $username; ?>
+</p>
+
+
+<br/>
+{{$per->name}}
+<br/>
+三目运算符：{{$p?"存在":"不存在"}}
+<br/>
+time={{$time|date='y-m-d',###}}
+
+<br/>
+{{assign name="var" value="123" /}}
+自定义变量：{{$var}}
+{{eq name='var' value='1234'}}
+相等
+{{else}}
+不相等
+{{/eq}}
+<br/>
+{{in name='var' value='1234,123'}}
+包含
+{{else}}
+不包含
+{{/in}}
+<br/>
+{{volist name='arr' id='vo'}}
+    <br/>属性：{{$vo}}
+{{/volist}}
+<hr/>
+传入的用户名{{$name}}
+数据库{{$data.address}}
+
+
+{{include file="index@index/footer"/}}

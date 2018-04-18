@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+	<link rel="shortcut icon" href="favicon.ico" type="./image/x-icon" />
+	<link rel="stylesheet" href="__PUBLIC__css/font.css">
+	<link rel="stylesheet" href="__PUBLIC__css/xadmin.css">
+	<!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+	<script src="__PUBLIC__lib/layui/layui.js" charset="utf-8"></script>
+	<!--收缩效果-->
+	<link href="__PUBLIC__css/reset.css" rel="stylesheet" />
+	<script type="text/javascript" src="__PUBLIC__js/jquery2.0.0.js"></script>
+	<script type="text/javascript" src="__PUBLIC__js/autoHeight.js"></script>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.parent {
+			width: 100%;
+			height: 100%;
+			clear: both;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.parent_left {
+			width: 220px;
+			height: 100%;
+			background-color: white;
+			float: left;
+		}
+
+		.parent_right {
+			width: calc(100% - 220px);
+			float: right;
+			height: 100%;
+		}
+
+		.shrink {
+			font-size: 20px;
+			line-height: 44px;
+		}
+		/*IE不支持details标签*/
+
+		.shrink summary {
+			width: 100%;
+			cursor: pointer;
+			font-family: MicrosoftYaHei;
+			font-size: 14px;
+			font-weight: bold;
+			letter-spacing: 0px;
+			background-color: white;
+			border: 0px;
+			color: #34404b;
+			line-height: inherit;
+			border: 0;
+			outline: none;
+		}
+
+		.shrink summary.active {
+			background-color: #f0f0f0;
+		}
+
+		.shrink summary:hover {
+			background-color: #f0f0f0;
+		}
+
+		.shrink summary::-webkit-details-marker {
+			width: 0px;
+		}
+
+		.shrink summary img {
+			vertical-align: middle;
+		}
+
+		.shrink summary span {
+			vertical-align: middle;
+			margin-left: 8px;
+		}
+
+		.shrink dl dd {
+			line-height: inherit;
+			background: white;
+		}
+
+		.shrink dl dd:hover {
+			background-color: #f0f0f0;
+		}
+
+		.shrink dl dd input {
+			margin-left: 45px;
+			vertical-align: middle;
+			font-family: MicrosoftYaHei;
+			font-size: 14px;
+			font-weight: bold;
+			letter-spacing: 0px;
+			color: #768492;
+			cursor: pointer;
+		}
+
+		.shrink dl dd input {
+			border: none;
+			height: 100%;
+			background-color: transparent;
+		}
+
+		.shrink dl dd input:disabled {
+			border: none;
+			cursor: pointer;
+		}
+
+		.create_device {
+			margin-top: 18px;
+			margin-left: 18px;
+			margin-bottom: 22px;
+			width: 180px;
+			height: 35px;
+			background-color: #4675d2;
+			border-radius: 17px;
+			line-height: 35px;
+		}
+
+		.create_device img {
+			vertical-align: middle;
+			margin-left: 48px;
+		}
+
+		.create_device span {
+			vertical-align: middle;
+			margin-left: 8px;
+			font-family: MicrosoftYaHei;
+			font-size: 14px;
+			font-weight: bold;
+			letter-spacing: 0px;
+			color: #ffffff;
+		}
+
+		.frame_content {
+			width: 100%;
+			height: inherit;
+			border: none;
+		}
+
+		.item_select {
+			border-left: 4px solid #4675d2;
+			background-color: #4675d2
+		}
+
+		.group_img {
+			position: relative;
+			left: 50%;
+			top: 50%;
+			margin-left: -25px;
+		}
+		.actives{
+			background-color: #f0f0f0;
+		}
+		.middle_create_device {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 700px;
+			height: 430px;
+			background: yellow;
+			opacity: 1;
+			border-radius: 17px;
+			display: block;
+			font-family: MicrosoftYaHei;
+			font-size: 16px;
+			font-weight: bold;
+			font-stretch: normal;
+			line-height: 26px;
+			letter-spacing: 0px;
+			color: #34404b;
+		}
+		.middle_create_device ul li{
+			float: left;
+			list-style: none;
+		}
+
+	</style>
+</head>
+
+<body>
+<div class="parent">
+
+	<div class="parent_left">
+		<div class="create_device">
+			<img src="__PUBLIC__images/create_device.png" />
+			<span>创建设备</span>
+		</div>
+		<details class="shrink">
+			<summary>
+				<img src="__PUBLIC__images/device_normal.png" />
+				<span>运行中</span>
+			</summary>
+			<dl id="run">
+				<dd><input type="text" value="全部" disabled/></dd>
+			</dl>
+		</details>
+
+		<details class="shrink">
+			<summary>
+				<img src="__PUBLIC__images/device_normal.png" />
+				<span>全部设备</span>
+				<img class="group_img" src="__PUBLIC__images/add_group.png" />
+			</summary>
+			<dl id='all'>
+				<dd><input type="text" value="部落冲突" disabled/></dd>
+				<dd><input type="text" value="王者荣耀" disabled/></dd>
+			</dl>
+
+		</details>
+	</div>
+
+	<div class="parent_right">
+		<iframe class="frame_content" src="showContentView" scrolling="no"></iframe>
+	</div>
+
+	<!--中间弹窗-->
+	<div class="middle_create_device">
+		<p style="margin-top: 22px;text-align: center;">创建设备</p>
+		<p style="margin-top: 22px;text-align: left;margin-left:54px;">创建设备数</p>
+		<div id="check_item">
+
+			<ul>
+				<li><img src="__PUBLIC__images/device_normal.png">1台</li>
+				<li><img src="__PUBLIC__images/device_normal.png">2台</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+	var _height = window.screen.availHeight;
+			$('.parent_left').css('height', (_height - 180) + 'px');
+			$('.parent_right').css('height', (_height - 180) + 'px');
+
+	$(function() {
+
+		$(".group_img").click(function(e) {
+			var e = e || window.event;
+
+			if(confirm("是否创建新的设备"))
+			{
+				var obj = $('<dd><input  type="text"  placeholder="请输入标签名"  /></dd>');
+
+				obj.appendTo($("#all"));
+
+				$("dl  dd  input").last().blur(function() {
+					$(this).attr("disabled", true);
+				});
+			}
+			e.cancelable = true; //是否有取消动作权限，才可以使用preventDefault默认行为
+			e.preventDefault();
+		});
+		$("#all dd").click(function() {
+
+			$("#all dd").removeClass("actives");
+			$("#all dd").removeClass("item_select");
+			$("#run dd").removeClass("actives");
+			$("#run dd").removeClass("item_select");
+			var k = $(this).index();
+			console.log("-----"+k)
+			$("#all dd").eq(k).addClass("actives");
+			$("#all dd").eq(k).addClass("item_select");
+		});
+ 
+		$("#run dd").click(function() {
+
+			$("#all dd").removeClass("actives");
+			$("#all dd").removeClass("item_select");
+			$("#run dd").removeClass("actives");
+			$("#run dd").removeClass("item_select");
+
+			var k = $(this).index();
+			console.log("-----"+k)
+			$("#run dd").eq(k).addClass("actives");
+			$("#run dd").eq(k).addClass("item_select");
+		});
+		$('.create_device').click(function() {
+			$('.middle_create_device').toggle();
+		});
+	});
+</script>
+
+</html>

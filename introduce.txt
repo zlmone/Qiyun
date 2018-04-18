@@ -1,0 +1,50 @@
+说明：
+/**
+ * 实列：用户登录、注销和注册
+ * 单用户留言
+ * 多用户回复
+ *
+ * 内容：
+ * TP基础配置
+ * TP的MVC实现
+ *
+ * TP专题应用：上传文件、表单验证、分页技术、安全机制、缓存机制、ajax
+ */
+.htaccess  apache目录级别配置文件，不需要启动就能生效
+配置URL重写
+管理依赖文件是才有效composer.json
+index.html  防止浏览器访问其他目录
+
+├─application         应用目录
+├─config              配置目录
+│  ├─config.php       应用配置文件
+│  ├─database.php     数据库配置文件
+│  ├─route.php        路由配置文件
+│  ├─index            index模块配置文件目录
+│  │  ├─config.php    index模块配置文件
+│  │  └─database.php  index模块数据库配置文件
+
+入口形式
+index.php/模块/控制器/操作/var/value
+
+URL 模式
+（1、普通模式 2、pathinfo模式  3、兼容模式   4.rewrite模式URL重写模式）
+//后端框架http://www.h-ui.net/Hui-notes-menu.shtml  hui-admin
+
+//如果出现No input file specilfiled
+
+//路由规则
+
+配置文件处理逻辑
+1、TP默认配置文件 convention.php
+2、应用程序配置（公有配置）
+3、当前文件配置文件
+
+配置文件可以覆盖
+优先级高的配置项会覆盖优先级低的配置项
+TP配置<应用程序配置项<当前配置项
+
+常用配置项
+
+可以动态获取和修改配置项
+<!--{{include file="../application/Hui.admin/index.html" /}}-->

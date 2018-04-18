@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>旗云群控系统</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <link rel="shortcut icon" href="favicon.ico" type="__PUBLIC__image/x-icon"/>
+    <link rel="stylesheet" href="__PUBLIC__css/font.css">
+    <link rel="stylesheet" href="__PUBLIC__css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="__PUBLIC__lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__js/xadmin.js"></script>
+
+</head>
+<body class="login-bg">
+
+<div class="login">
+    <div class="message">用户登录</div>
+    <div id="darkbannerwrap"></div>
+
+    <form method="post" class="layui-form">
+        <input name="username" id="username" placeholder="用户名" type="text" lay-verify="required" class="layui-input">
+        <hr class="hr15">
+        <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input">
+        <hr class="hr15">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+        <hr class="hr20">
+        <a href="signin"><u>没有账号，去注册</u></a>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        if (window != top)
+            top.location.href = location.href;
+        autoLogin();
+        layui.use('form', function () {
+            var form = layui.form;
+            //监听提交
+            form.on('submit(login)', function (data) {
+                //请求数据
+                var url = "http://cphone.qicloud.com/action_login";
+                var obj = {
+                    "username": data.field.username,
+                    "pwd": data.field.password
+                };
+                var jsondata = JSON.stringify(obj);
+                login2Server(jsondata);
+                return false;
+            });
+        });
+        /**
+         * 登录服务器
+         * @param jsondata
+         */
+        function login2Server(jsondata) {
+            var url = "http://cphone.qicloud.com/action_login";
+            $.post(url, jsondata, function (data) {
+                console.log('post--登录操作请求->' + JSON.stringify(data));
+                if (data.status == 1) {
+                    //登陆成功
+                    setCookie('token', data.token, 7 * 24 * 3600);
+                    setCookie('username', data.data.username, 7 * 24 * 3600);
+                    location.href = 'home'
+                } else//登录失败
+                {
+                    layer.msg(data.msg);
+                    removeCookie('token');
+                    removeCookie('username');
+                }
+            }, 'json');
+        }
+
+        function setCookie(key, value, t) {
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate() + t);
+            document.cookie = key + '=' + value + ';expires=' + oDate.toGMTString();
+        }
+
+        function getCookie(key) {
+            var arr1 = document.cookie.split('; ');
+            for (var i = 0; i < arr1.length; i++) {
+                var arr2 = arr1[i].split('=');
+                if (arr2[0] == key) {
+                    return decodeURI(arr2[1]);
+                }
+            }
+        }
+
+        function removeCookie(key) {
+            setCookie(key, '', -1);
+        }
+
+        function autoLogin() {
+            var obtn1 = document.getElementById("username");
+            var username = getCookie("username");
+            if (username) {
+                obtn1.value = getCookie("username");
+            }
+        }
+    })
+</script>
+
+
+</body>
+</html>
